@@ -252,8 +252,7 @@ namespace Singularity.Apps {
 
         private void percent() {
             double val = double.parse(current_input);
-            current_input = (val / 100.0).to_string();
-            format_result();
+            current_input = format_double(val / 100.0);
             new_input = true;
             update_display();
         }
@@ -279,8 +278,7 @@ namespace Singularity.Apps {
                     res = double.NAN;
                 }
             }
-            current_input = res.to_string();
-            format_result();
+            current_input = format_double(res);
             new_input = true;
             update_display();
         }
@@ -309,21 +307,22 @@ namespace Singularity.Apps {
                 case "/": res = v1 / v2; break;
                 case "^": res = Math.pow(v1, v2); break;
             }
-            current_input = res.to_string();
-            format_result();
+            current_input = format_double(res);
             history_label.label = "";
             operation = "";
             new_input = true;
             update_display();
         }
 
-        private void format_result() {
-            if (current_input.contains(".") && !current_input.contains("e")) {
-                while (current_input.has_suffix("0"))
-                    current_input = current_input.substring(0, current_input.length - 1);
-                if (current_input.has_suffix("."))
-                    current_input = current_input.substring(0, current_input.length - 1);
+        private string format_double(double val) {
+            if (val.is_nan()) return "Error";
+            if (val.is_infinity() != 0) return val > 0 ? "∞" : "-∞";
+            string s = "%.12g".printf(val);
+            if ("." in s && !("e" in s)) {
+                while (s.has_suffix("0")) s = s.substring(0, s.length - 1);
+                if (s.has_suffix(".")) s = s.substring(0, s.length - 1);
             }
+            return s;
         }
 
         private void update_display() {
