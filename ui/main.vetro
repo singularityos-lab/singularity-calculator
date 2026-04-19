@@ -1,0 +1,31 @@
+Template(class: "SingularityAppsCalculatorWindow", parent: "SingularityWidgetsWindow") {
+
+    Button(id: "mode_btn", marginStart: 8, marginEnd: 8) {
+        HBox(spacing: 6) {
+            Label(id: "mode_label", label: "Basic")
+            Image(iconName: "pan-down-symbolic")
+        }
+    }
+
+    VBox(id: "main_box", spacing: 0) {
+        VBox(id: "display_box", spacing: 12, vexpand: true, valign: "end")
+            .cssClass("calculator-display") {
+
+            Label(id: "history_label", label: "", halign: "end")
+                .cssClass("history-text")
+
+            Label(id: "display_label", label: "0", halign: "end")
+                .cssClass("display-text")
+        }
+
+        Grid(id: "basic_keypad",
+             columnSpacing: 12, rowSpacing: 12,
+             rowHomogeneous: true, columnHomogeneous: true)
+            .cssClass("calculator-keypad")
+
+        Grid(id: "advanced_keypad",
+             columnSpacing: 8, rowSpacing: 8,
+             rowHomogeneous: true, columnHomogeneous: true)
+            .cssClass("calculator-keypad")
+    }
+}

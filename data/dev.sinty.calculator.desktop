@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Calculator
+Comment=Perform basic arithmetic calculations
+Exec=singularity-calculator
+Icon=dev.sinty.calculator
+Terminal=false
+Type=Application
+Categories=Utility;Calculator;
+StartupWMClass=dev.sinty.calculator

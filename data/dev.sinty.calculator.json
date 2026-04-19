@@ -1,0 +1,9 @@
+{
+    "app-id": "dev.sinty.calculator",
+    "name": "Calculator",
+    "icon": "singularity-calculator",
+    "description": "Perform basic arithmetic calculations",
+    "category": "Utility",
+    "window-width": 360,
+    "window-height": 580
+}
