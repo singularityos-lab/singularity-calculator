@@ -7,6 +7,7 @@ gnome = import('gnome')
 
 gtk_dep            = dependency('gtk4')
 gee_dep            = dependency('gee-0.8')
+
 libsingularity_dep = dependency('singularity-1.0', 
   fallback: ['libsingularity', 'libsingularity_dep']
 )
@@ -17,10 +18,14 @@ if not meson.is_subproject() and libsingularity_dep.type_name() == 'internal'
 endif
 math_dep           = meson.get_compiler('c').find_library('m')
 
+# Compile .vetro to .ui in the ui/ subdirectory
+subdir('ui')
+
 resources = gnome.compile_resources(
   'singularity-calculator-resources',
   'resources/dev.sinty.calculator.gresource.xml',
-  source_dir: meson.current_source_dir()
+  source_dir: [meson.current_source_dir(), meson.current_build_dir()],
+  dependencies: main_ui
 )
 
 executable('singularity-calculator',
