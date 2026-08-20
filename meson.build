@@ -38,6 +38,14 @@ executable('singularity-calculator',
   install: true
 )
 
+# CalculatorEngine is deliberately GTK-free so the arithmetic can be covered
+# without a display: the test binary needs nothing but GObject and libm.
+calculator_engine_test = executable('calculator-engine-test',
+  sources: ['src/engine.vala', 'tests/engine_test.vala'],
+  dependencies: [dependency('gobject-2.0'), math_dep],
+)
+test('calculator-engine', calculator_engine_test)
+
 install_data('data/dev.sinty.calculator.desktop',
   install_dir: get_option('datadir') / 'applications'
 )
