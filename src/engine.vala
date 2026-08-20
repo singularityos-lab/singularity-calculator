@@ -70,7 +70,16 @@ namespace Singularity.Apps {
 
         public bool has_memory { get { return memory != 0; } }
 
-        public double current_value { get { return double.parse(display); } }
+        /**
+         * The value arithmetic actually uses. `display` is rounded to 12
+         * significant digits for readability, so folding a chain of operators
+         * through it would lose precision at every step: sqrt(2) x sqrt(2)
+         * came out as 1.99999999999. Computed values therefore keep their
+         * full double alongside the rendered string.
+         */
+        public double current_value {
+            get { return exact_valid ? exact_value : double.parse(display); }
+        }
 
         public uint paren_depth { get { return paren_marks.length; } }
 
@@ -89,6 +98,10 @@ namespace Singularity.Apps {
         /** `display` holds a number the user typed or the engine computed. */
         private bool operand_ready = false;
 
+        /** Full-precision counterpart of `display`, valid for computed values. */
+        private double exact_value = 0;
+        private bool exact_valid = false;
+
         // ------------------------------------------------------------------
         // Entry
         // ------------------------------------------------------------------
@@ -105,6 +118,7 @@ namespace Singularity.Apps {
             if (display == "0")       display = digit;
             else if (display == "-0") display = "-" + digit;
             else                      display = display + digit;
+            exact_valid = false;
             operand_ready = true;
         }
 
@@ -117,6 +131,7 @@ namespace Singularity.Apps {
             } else if (!("." in display)) {
                 display = display + ".";
             }
+            exact_valid = false;
             operand_ready = true;
         }
 
@@ -140,6 +155,7 @@ namespace Singularity.Apps {
                 operand_ready = false;
             }
             display = s;
+            exact_valid = false;
         }
 
         public void negate() {
@@ -150,6 +166,7 @@ namespace Singularity.Apps {
             // number instead of lying about what will be computed.
             if (awaiting_operand) {
                 display = "-0";
+                exact_valid = false;
                 new_entry = false;
                 awaiting_operand = false;
                 operand_ready = true;
@@ -157,9 +174,10 @@ namespace Singularity.Apps {
             }
             if (new_entry) {
                 if (current_value == 0) return;
-                display = format(-current_value);
+                commit(-current_value);
                 return;
             }
+            exact_valid = false;
             if (display == "0") {
                 display = "-0";
                 return;
@@ -173,6 +191,7 @@ namespace Singularity.Apps {
             display = "0";
             history = "";
             status = Status.OK;
+            exact_valid = false;
             ops = {};
             paren_marks = {};
             new_entry = true;
@@ -430,6 +449,8 @@ namespace Singularity.Apps {
             if (v.is_infinity() != 0)  { fail(Status.OVERFLOW);  return; }
 
             display = format(v);
+            exact_value = v;
+            exact_valid = true;
             new_entry = true;
             awaiting_operand = false;
             operand_ready = true;
@@ -443,6 +464,7 @@ namespace Singularity.Apps {
         private void fail(Status s) {
             display = "0";
             history = "";
+            exact_valid = false;
             ops = {};
             paren_marks = {};
             new_entry = true;

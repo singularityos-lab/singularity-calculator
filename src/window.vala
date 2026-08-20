@@ -41,6 +41,9 @@ namespace Singularity.Apps {
             memory_bubble = add_bubble_label("M", true);
             memory_bubble.visible = false;
 
+            // Let the result be picked with the mouse, not just Ctrl+C.
+            display_label.selectable = true;
+
             main_box.add_css_class("calculator-app");
             populate_basic_keypad();
             populate_advanced_keypad();
@@ -144,7 +147,11 @@ namespace Singularity.Apps {
                 empty.add_css_class("dim-label");
                 empty.margin_top = 12;
                 empty.margin_bottom = 12;
-                log_list.append(empty);
+
+                var row = new ListBoxRow();
+                row.set_child(empty);
+                row.activatable = false;
+                log_list.append(row);
                 return;
             }
             // Newest first: the last thing computed is what you want to reuse.
@@ -170,7 +177,9 @@ namespace Singularity.Apps {
         // ------------------------------------------------------------------
 
         private void copy_result() {
-            ((Gtk.Widget) this).get_clipboard().set_text(display_label.label);
+            // Copying the error message would only paste noise elsewhere.
+            if (engine.has_error) return;
+            ((Gtk.Widget) this).get_clipboard().set_text(engine.display);
         }
 
         private void paste_number() {

@@ -659,6 +659,50 @@ private void test_formatting_normalises_negative_zero() {
 }
 
 /**
+ * The display is rounded to 12 significant digits; the values fed to the next
+ * operator must not be. Folding a chain through the rendered string turned
+ * sqrt(2) x sqrt(2) into 1.99999999999.
+ */
+private void test_chained_operations_keep_full_precision() {
+    var e = engine();
+    feed(e, "1");
+    e.set_operation(CalculatorEngine.Operation.DIVIDE);
+    feed(e, "3");
+    e.set_operation(CalculatorEngine.Operation.MULTIPLY);
+    feed(e, "3");
+    e.equals();
+    assert(e.display == "1");
+
+    var f = engine();
+    feed(f, "2");
+    f.apply_function(CalculatorEngine.Function.SQRT);
+    assert(f.display == "1.41421356237");
+    f.set_operation(CalculatorEngine.Operation.MULTIPLY);
+    feed(f, "2");
+    f.apply_function(CalculatorEngine.Function.SQRT);
+    f.equals();
+    assert(f.display == "2");
+}
+
+private void test_typed_digits_are_read_from_the_display() {
+    // A number the user typed has no exact counterpart to fall back on.
+    var e = engine();
+    feed(e, "1");
+    e.set_operation(CalculatorEngine.Operation.DIVIDE);
+    feed(e, "3");
+    e.equals();
+    assert(e.display == "0.333333333333");
+
+    // Overwriting the result with typed digits must not reuse the old value.
+    feed(e, "2");
+    assert(e.current_value == 2);
+    e.set_operation(CalculatorEngine.Operation.MULTIPLY);
+    feed(e, "3");
+    e.equals();
+    assert(e.display == "6");
+}
+
+/**
  * Regression guard for the locale bug: printf("%.12g") honours LC_NUMERIC and
  * emitted "0,125" under fr_FR, which g_ascii_strtod then read back as 0.
  */
@@ -752,6 +796,8 @@ public int main(string[] args) {
     Test.add_func("/calculator/format/binary-residue", test_formatting_hides_binary_residue);
     Test.add_func("/calculator/format/trailing-zeros", test_formatting_strips_trailing_zeros);
     Test.add_func("/calculator/format/negative-zero", test_formatting_normalises_negative_zero);
+    Test.add_func("/calculator/format/chained-precision", test_chained_operations_keep_full_precision);
+    Test.add_func("/calculator/format/typed-digits", test_typed_digits_are_read_from_the_display);
     Test.add_func("/calculator/format/locale-independent", test_formatting_is_locale_independent);
 
     return Test.run();
