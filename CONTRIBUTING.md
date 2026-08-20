@@ -9,12 +9,15 @@ meson setup build
 ninja -C build
 ```
 
-To enable GObject Introspection:
+Run the engine tests:
 
 ```bash
-meson setup build -Dintrospection=true
-ninja -C build
+meson test -C build --suite singularity-calculator
 ```
+
+Arithmetic belongs in `src/engine.vala`, which must stay free of GTK and of
+gettext so the test binary can link against GObject and libm alone. The window
+maps engine states to translated text.
 
 ## Code style
 
