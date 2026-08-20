@@ -1,12 +1,5 @@
 Template(class: "SingularityAppsCalculatorWindow", parent: "SingularityWidgetsWindow") {
 
-    Button(id: "mode_btn", marginStart: 8, marginEnd: 8) {
-        HBox(spacing: 6) {
-            Label(id: "mode_label", label: "Basic").translatable("label")
-            Image(iconName: "pan-down-symbolic")
-        }
-    }
-
     VBox(id: "main_box", spacing: 0) {
         VBox(id: "display_box", spacing: 12, vexpand: true, valign: "end")
             .cssClass("calculator-display") {

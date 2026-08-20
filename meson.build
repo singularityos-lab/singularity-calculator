@@ -29,11 +29,11 @@ resources = gnome.compile_resources(
   'singularity-calculator-resources',
   'resources/dev.sinty.calculator.gresource.xml',
   source_dir: [meson.current_source_dir(), meson.current_build_dir()],
-  dependencies: main_ui
+  dependencies: [main_ui, files('resources/style.css')]
 )
 
 executable('singularity-calculator',
-  ['src/main.vala', resources],
+  ['src/engine.vala', 'src/window.vala', 'src/main.vala', resources],
   dependencies: [gtk_dep, gee_dep, libsingularity_dep, math_dep],
   install: true
 )
