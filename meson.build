@@ -11,6 +11,7 @@ gnome = import('gnome')
 
 gtk_dep            = dependency('gtk4')
 gee_dep            = dependency('gee-0.8')
+gtksource_dep      = dependency('gtksourceview-5')
 
 libsingularity_dep = dependency('singularity-1.0', 
   fallback: ['libsingularity', 'libsingularity_dep']
@@ -34,7 +35,7 @@ resources = gnome.compile_resources(
 
 executable('singularity-calculator',
   ['src/main.vala', resources],
-  dependencies: [gtk_dep, gee_dep, libsingularity_dep, math_dep],
+  dependencies: [gtk_dep, gee_dep, libsingularity_dep, math_dep, gtksource_dep],
   install: true
 )
 

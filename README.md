@@ -13,6 +13,7 @@ A calculator app for the [Singularity Desktop Environment](https://github.com/si
 - [Vetro](https://github.com/singularityos-lab/vetro/) compiler
 - GTK4
 - libgee-0.8
+- gtksourceview-5 ≥ 5.0
 - [libsingularity](https://github.com/singularityos-lab/libsingularity)
 
 ## Build & Install
