@@ -29,14 +29,22 @@ resources = gnome.compile_resources(
   'singularity-calculator-resources',
   'resources/dev.sinty.calculator.gresource.xml',
   source_dir: [meson.current_source_dir(), meson.current_build_dir()],
-  dependencies: main_ui
+  dependencies: [main_ui, files('resources/style.css')]
 )
 
 executable('singularity-calculator',
-  ['src/main.vala', resources],
+  ['src/engine.vala', 'src/window.vala', 'src/main.vala', resources],
   dependencies: [gtk_dep, gee_dep, libsingularity_dep, math_dep],
   install: true
 )
+
+# CalculatorEngine is deliberately GTK-free so the arithmetic can be covered
+# without a display: the test binary needs nothing but GObject and libm.
+calculator_engine_test = executable('calculator-engine-test',
+  sources: ['src/engine.vala', 'tests/engine_test.vala'],
+  dependencies: [dependency('gobject-2.0'), math_dep],
+)
+test('calculator-engine', calculator_engine_test)
 
 install_data('data/dev.sinty.calculator.desktop',
   install_dir: get_option('datadir') / 'applications'

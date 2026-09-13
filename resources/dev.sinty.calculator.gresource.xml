@@ -2,5 +2,6 @@
 <gresources>
   <gresource prefix="/dev/sinty/calculator">
     <file preprocess="xml-stripblanks">ui/main.ui</file>
+    <file alias="style.css" compressed="true">resources/style.css</file>
   </gresource>
 </gresources>
