@@ -1,0 +1,72 @@
+.calculator-app {
+    background-color: @window_bg;
+}
+
+.calculator-display {
+    background-color: transparent;
+    padding: 24px;
+    padding-top: 60px;
+}
+
+.history-text {
+    font-size: 16px;
+    color: alpha(@text_color, 0.5);
+}
+
+.display-text {
+    font-size: 48px;
+    font-weight: 300;
+    color: @text_color;
+}
+
+.display-text.error-text {
+    font-size: 24px;
+    color: @error_color;
+}
+
+.calculator-keypad {
+    background-color: mix(@window_bg, @accent_color, 0.12);
+    padding: 16px;
+    border-top: 1px solid @border_color;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+button.calc-btn {
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: 500;
+    min-height: 54px;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+button.calc-btn.num-btn,
+button.calc-btn.func-btn {
+    background-color: alpha(@text_color, 0.06);
+    color: @text_color;
+}
+button.calc-btn.num-btn:hover,
+button.calc-btn.func-btn:hover {
+    background-color: alpha(@text_color, 0.12);
+}
+button.calc-btn.num-btn:active,
+button.calc-btn.func-btn:active {
+    background-color: alpha(@text_color, 0.18);
+}
+
+button.calc-btn.op-btn {
+    background-color: alpha(@accent_color, 0.22);
+    color: @text_color;
+}
+button.calc-btn.op-btn:hover {
+    background-color: alpha(@accent_color, 0.32);
+}
+button.calc-btn.op-btn:active {
+    background-color: alpha(@accent_color, 0.42);
+}
+
+button.calc-btn.suggested-action {
+    font-size: 28px;
+}
