@@ -33,7 +33,7 @@ resources = gnome.compile_resources(
 )
 
 executable('singularity-calculator',
-  ['src/engine.vala', 'src/window.vala', 'src/main.vala', resources],
+  ['src/engine.vala', 'src/window.vala', 'src/main.vala', 'src/units.vala', resources],
   dependencies: [gtk_dep, gee_dep, libsingularity_dep, math_dep],
   install: true
 )
@@ -45,6 +45,19 @@ calculator_engine_test = executable('calculator-engine-test',
   dependencies: [dependency('gobject-2.0'), math_dep],
 )
 test('calculator-engine', calculator_engine_test)
+
+service_conf = configuration_data()
+service_conf.set('bindir', get_option('prefix') / get_option('bindir'))
+configure_file(
+  input: 'data/dev.sinty.calculator.service.in',
+  output: 'dev.sinty.calculator.service',
+  configuration: service_conf,
+  install_dir: get_option('datadir') / 'dbus-1' / 'services'
+)
+install_data('data/dev.sinty.calculator.search-provider.ini',
+  rename: 'dev.sinty.calculator.ini',
+  install_dir: get_option('datadir') / 'singularity' / 'search-providers'
+)
 
 install_data('data/dev.sinty.calculator.desktop',
   install_dir: get_option('datadir') / 'applications'

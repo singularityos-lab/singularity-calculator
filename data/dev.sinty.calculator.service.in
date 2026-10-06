@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=dev.sinty.calculator
+Exec=@bindir@/singularity-calculator --gapplication-service

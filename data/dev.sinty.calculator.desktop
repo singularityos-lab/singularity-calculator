@@ -6,4 +6,10 @@ Icon=dev.sinty.calculator
 Terminal=false
 Type=Application
 Categories=Utility;Calculator;
+Keywords=calculate;math;convert;units;
 StartupWMClass=dev.sinty.calculator
+Actions=advanced;
+
+[Desktop Action advanced]
+Name=Advanced Calculator
+Exec=singularity-calculator --advanced

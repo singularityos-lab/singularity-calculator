@@ -55,6 +55,31 @@ namespace Singularity.Apps {
             update_display();
 
             ((Gtk.Widget) this).add_controller(build_key_controller());
+            install_actions();
+        }
+
+        private void install_actions() {
+            var entries = new ActionEntry[] {
+                { "copy", () => copy_result() },
+                { "paste", () => paste_number() },
+                { "clear", () => engine.clear() },
+                { "close", () => close() },
+                { "mode", null, "s", "'basic'", on_mode_change },
+                { "angle", null, "s", "'degrees'", on_angle_change }
+            };
+            add_action_entries(entries, this);
+            ((SimpleAction) lookup_action("angle")).set_enabled(is_advanced);
+        }
+
+        private void on_mode_change(SimpleAction action, Variant? value) {
+            if ((value.get_string() == "advanced") != is_advanced) toggle_mode();
+        }
+
+        private void on_angle_change(SimpleAction action, Variant? value) {
+            bool degrees = value.get_string() == "degrees";
+            engine.angle_unit = degrees ? CalculatorEngine.AngleUnit.DEGREES : CalculatorEngine.AngleUnit.RADIANS;
+            deg_rad_label.label = degrees ? _("Deg") : _("Rad");
+            action.set_state(value);
         }
 
         // ------------------------------------------------------------------
@@ -94,6 +119,10 @@ namespace Singularity.Apps {
 
         private void toggle_mode() {
             is_advanced = !is_advanced;
+            var mode_action = lookup_action("mode") as SimpleAction;
+            if (mode_action != null) mode_action.set_state(new Variant.string(is_advanced ? "advanced" : "basic"));
+            var angle_action = lookup_action("angle") as SimpleAction;
+            if (angle_action != null) angle_action.set_enabled(is_advanced);
             if (is_advanced) {
                 mode_bubble.label = _("Advanced");
                 main_box.remove(basic_keypad);
@@ -384,10 +413,7 @@ namespace Singularity.Apps {
             btn.update_property(Gtk.AccessibleProperty.LABEL, _("Toggle degrees or radians"));
             btn.clicked.connect(() => {
                 bool degrees = engine.angle_unit == CalculatorEngine.AngleUnit.DEGREES;
-                engine.angle_unit = degrees
-                    ? CalculatorEngine.AngleUnit.RADIANS
-                    : CalculatorEngine.AngleUnit.DEGREES;
-                deg_rad_label.label = degrees ? _("Rad") : _("Deg");
+                lookup_action("angle").activate(new Variant.string(degrees ? "radians" : "degrees"));
             });
             return btn;
         }
