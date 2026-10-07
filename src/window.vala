@@ -43,6 +43,10 @@ namespace Singularity.Apps {
 
             // Let the result be picked with the mouse, not just Ctrl+C.
             display_label.selectable = true;
+            var drag = new DragSource();
+            drag.actions = Gdk.DragAction.COPY;
+            drag.prepare.connect((x, y) => engine.has_error ? null : new Gdk.ContentProvider.for_value(engine.display));
+            display_label.add_controller(drag);
 
             main_box.add_css_class("calculator-app");
             populate_basic_keypad();
@@ -191,8 +195,34 @@ namespace Singularity.Apps {
                 label.margin_bottom = 6;
                 label.margin_start = 12;
                 label.margin_end = 12;
+                string entry = entries[i];
+                var right = new GestureClick();
+                right.button = Gdk.BUTTON_SECONDARY;
+                right.pressed.connect((n, x, y) => {
+                    var menu = new ContextMenu(label);
+                    menu.set_pointing_to(Gdk.Rectangle() { x = (int) x, y = (int) y, width = 1, height = 1 });
+                    menu.add_item(_("Copy Result"), "edit-copy-symbolic", () => ((Gtk.Widget) this).get_clipboard().set_text(entry.substring(entry.last_index_of(" = ") + 3)));
+                    menu.add_item(_("Copy as Formula"), "x-office-spreadsheet-symbolic", () => ((Gtk.Widget) this).get_clipboard().set_text(formula_of(entry)));
+                    menu.closed.connect(() => Idle.add(() => {
+                        menu.unparent();
+                        return Source.REMOVE;
+                    }));
+                    menu.popup();
+                });
+                label.add_controller(right);
+                var row_drag = new DragSource();
+                row_drag.actions = Gdk.DragAction.COPY;
+                row_drag.prepare.connect((x, y) => new Gdk.ContentProvider.for_value(formula_of(entry)));
+                label.add_controller(row_drag);
                 log_list.append(label);
             }
+        }
+
+        private static string formula_of(string log_entry) {
+            int sep = log_entry.last_index_of(" = ");
+            string expr = sep >= 0 ? log_entry.substring(0, sep) : log_entry;
+            expr = expr.replace("\xe2\x88\x92", "-").replace("\xc3\x97", "*").replace("\xc3\xb7", "/").replace(" ", "");
+            return "=" + expr;
         }
 
         private static double result_of(string log_entry) {
