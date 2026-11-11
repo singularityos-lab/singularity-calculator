@@ -34,6 +34,7 @@ namespace Singularity.Apps {
         protected override void startup() {
             base.startup();
             setup_styles();
+            CalculatorIntents.install(this);
 
             var menu = new GLib.Menu();
             var file_menu = new GLib.Menu();

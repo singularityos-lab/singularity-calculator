@@ -18,7 +18,7 @@ namespace Singularity.Apps {
         [GtkChild] unowned Grid  basic_keypad;
         [GtkChild] unowned Grid  advanced_keypad;
 
-        private CalculatorEngine engine = new CalculatorEngine();
+        internal CalculatorEngine engine = new CalculatorEngine();
 
         private bool is_advanced = false;
 

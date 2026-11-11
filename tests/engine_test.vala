@@ -739,7 +739,59 @@ private void test_formatting_is_locale_independent() {
     Intl.setlocale(LocaleCategory.NUMERIC, previous ?? "C");
 }
 
-public int main(string[] args) {
+public void check_expression(string expr, string want) {
+    try {
+        string line;
+        double v = ExpressionEvaluator.evaluate(expr, CalculatorEngine.AngleUnit.DEGREES, out line);
+        if (CalculatorEngine.format(v) != want) {
+            printerr("%s gave %s, expected %s\n", expr, CalculatorEngine.format(v), want);
+            assert_not_reached();
+        }
+    } catch (Error e) {
+        printerr("%s failed: %s\n", expr, e.message);
+        assert_not_reached();
+    }
+}
+
+void check_expression_fails(string expr) {
+    try {
+        string line;
+        ExpressionEvaluator.evaluate(expr, CalculatorEngine.AngleUnit.DEGREES, out line);
+        printerr("%s did not fail\n", expr);
+        assert_not_reached();
+    } catch (Error e) {
+    }
+}
+
+void test_expressions() {
+    check_expression("2 + 3 * 4", "14");
+    check_expression("(2 + 3) * 4", "20");
+    check_expression("2^3^2", "512");
+    check_expression("-2^2", "-4");
+    check_expression("3 * -2", "-6");
+    check_expression("-(3 + 1)", "-4");
+    check_expression("sqrt(16) + 1", "5");
+    check_expression("sin(30)", "0.5");
+    check_expression("5!", "120");
+    check_expression("200 + 10%", "220");
+    check_expression("2 pi", "6.28318530718");
+    check_expression("1,5 * 2", "3");
+    check_expression("log(1000)", "3");
+    check_expression("2(3+4", "14");
+    check_expression("1e3 / 4", "250");
+    check_expression("7", "7");
+}
+
+void test_expression_errors() {
+    check_expression_fails("1 / 0");
+    check_expression_fails("sqrt(-1)");
+    check_expression_fails("2 +");
+    check_expression_fails("foo(2)");
+    check_expression_fails(")");
+    check_expression_fails("");
+}
+
+int main(string[] args) {
     Test.init(ref args);
 
     Test.add_func("/calculator/entry/replaces-leading-zero", test_entry_replaces_leading_zero);
@@ -799,6 +851,9 @@ public int main(string[] args) {
     Test.add_func("/calculator/format/chained-precision", test_chained_operations_keep_full_precision);
     Test.add_func("/calculator/format/typed-digits", test_typed_digits_are_read_from_the_display);
     Test.add_func("/calculator/format/locale-independent", test_formatting_is_locale_independent);
+
+    Test.add_func("/calculator/expression/evaluate", test_expressions);
+    Test.add_func("/calculator/expression/errors", test_expression_errors);
 
     return Test.run();
 }
