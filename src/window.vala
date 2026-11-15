@@ -43,6 +43,8 @@ namespace Singularity.Apps {
 
             // Let the result be picked with the mouse, not just Ctrl+C.
             display_label.selectable = true;
+            display_label.ellipsize = Pango.EllipsizeMode.START;
+            history_label.ellipsize = Pango.EllipsizeMode.START;
             var drag = new DragSource();
             drag.actions = Gdk.DragAction.COPY;
             drag.prepare.connect((x, y) => engine.has_error ? null : new Gdk.ContentProvider.for_value(engine.display));
@@ -98,6 +100,12 @@ namespace Singularity.Apps {
                 display_label.label = engine.display;
                 display_label.remove_css_class("error-text");
             }
+            int len = display_label.label.char_count();
+            if (len > 16) display_label.add_css_class("display-xlong");
+            else display_label.remove_css_class("display-xlong");
+            if (len > 10) display_label.add_css_class("display-long");
+            else display_label.remove_css_class("display-long");
+            display_label.tooltip_text = len > 10 ? display_label.label : null;
             history_label.label = engine.history;
             memory_bubble.visible = engine.has_memory;
         }

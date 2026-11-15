@@ -19,6 +19,14 @@
     color: @text_color;
 }
 
+.display-text.display-long {
+    font-size: 36px;
+}
+
+.display-text.display-xlong {
+    font-size: 26px;
+}
+
 .display-text.error-text {
     font-size: 24px;
     color: @error_color;
