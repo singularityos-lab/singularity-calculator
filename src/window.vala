@@ -458,7 +458,8 @@ namespace Singularity.Apps {
 
         private void add_digit_row(Grid grid, string a, string b, string c, int row) {
             add_key(grid, a, a, 0, row, "num-btn", () => engine.append_digit(a));
-            add_key(grid, b, b, 1, row, "num-btn", () => engine.append_digit(b));
+            var middle = add_key(grid, b, b, 1, row, "num-btn", () => engine.append_digit(b));
+            if (b == "5") Singularity.Focus.set_primary(middle);
             add_key(grid, c, c, 2, row, "num-btn", () => engine.append_digit(c));
         }
 
@@ -468,7 +469,7 @@ namespace Singularity.Apps {
          * `callback` must be `owned`: it outlives this call inside the clicked
          * handler, and a borrowed delegate would dangle there.
          */
-        private void add_key(Grid grid, string label, string description,
+        private Button add_key(Grid grid, string label, string description,
                              int col, int row, string css_class,
                              owned ClickedCallback callback) {
             var btn = new Button.with_label(label);
@@ -477,6 +478,7 @@ namespace Singularity.Apps {
             btn.update_property(Gtk.AccessibleProperty.LABEL, description);
             btn.clicked.connect(() => callback());
             grid.attach(btn, col, row);
+            return btn;
         }
     }
 }
