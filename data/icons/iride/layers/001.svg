@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="236" height="236" viewBox="0 0 236 236" fill="none"><defs><linearGradient id="ca_body" x1="118" y1="16" x2="118" y2="214" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#737d8c" /><stop offset="0.5" stop-color="#596372" /><stop offset="1" stop-color="#434d5c" /></linearGradient>
+</defs><path d="M72 16H164Q192 16 192 44V186Q192 214 164 214H72Q44 214 44 186V44Q44 16 72 16Z" fill="url(#ca_body)" />
+</svg>

@@ -1,0 +1,565 @@
+{
+ "format": 1,
+ "canvas": [
+  236,
+  236
+ ],
+ "box": [
+  0,
+  0,
+  236,
+  236
+ ],
+ "stack": [
+  {
+   "shadow": {
+    "dx": 0,
+    "dy": 5,
+    "blur": 6,
+    "color": "#0a0f1f",
+    "opacity": 0.45,
+    "region": [
+     -20,
+     -20,
+     276,
+     276
+    ]
+   },
+   "stack": [
+    {
+     "layer": "layers/000.svg",
+     "piece": "body"
+    },
+    {
+     "layer": "layers/001.svg",
+     "piece": "body"
+    }
+   ]
+  },
+  {
+   "clip": "M72 16H164Q192 16 192 44V186Q192 214 164 214H72Q44 214 44 186V44Q44 16 72 16Z",
+   "stack": [
+    {
+     "layer": "layers/002.svg",
+     "piece": "body"
+    }
+   ]
+  },
+  {
+   "rim": "M72 16H164Q192 16 192 44V186Q192 214 164 214H72Q44 214 44 186V44Q44 16 72 16Z",
+   "light": [
+    44.0,
+    16.0,
+    192.0,
+    214.0
+   ],
+   "piece": "body"
+  },
+  {
+   "layer": "layers/004.svg",
+   "piece": "body"
+  },
+  {
+   "layer": "layers/005.svg",
+   "piece": "body"
+  },
+  {
+   "layer": "layers/sette.svg",
+   "piece": "seven"
+  },
+  {
+   "layer": "layers/due.svg",
+   "piece": "two"
+  },
+  {
+   "layer": "layers/007.svg",
+   "piece": "mark"
+  },
+  {
+   "layer": "layers/008.svg",
+   "piece": "key-cap-seven"
+  },
+  {
+   "layer": "layers/009.svg",
+   "piece": "key-cap-seven"
+  },
+  {
+   "layer": "layers/010.svg",
+   "piece": "key-cap-seven"
+  },
+  {
+   "layer": "layers/011.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/012.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/013.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/014.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/015.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/016.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/017.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/018.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/019.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/020.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/021.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/022.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/023.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/024.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/025.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/026.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/027.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/028.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/029.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/030.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/031.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/032.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/033.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/034.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/035.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/036.svg",
+   "piece": "keys-top"
+  },
+  {
+   "layer": "layers/037.svg",
+   "piece": "key-cap-two"
+  },
+  {
+   "layer": "layers/038.svg",
+   "piece": "key-cap-two"
+  },
+  {
+   "layer": "layers/039.svg",
+   "piece": "key-cap-two"
+  },
+  {
+   "layer": "layers/040.svg",
+   "piece": "key-cap-three"
+  },
+  {
+   "layer": "layers/041.svg",
+   "piece": "key-cap-three"
+  },
+  {
+   "layer": "layers/042.svg",
+   "piece": "key-cap-three"
+  },
+  {
+   "layer": "layers/043.svg",
+   "piece": "equals"
+  },
+  {
+   "layer": "layers/044.svg",
+   "piece": "equals"
+  },
+  {
+   "layer": "layers/045.svg",
+   "piece": "equals"
+  },
+  {
+   "layer": "layers/046.svg",
+   "piece": "equals"
+  }
+ ],
+ "motion": [
+  {
+   "piece": "body",
+   "origin": [
+    118.0,
+    118.0
+   ],
+   "tracks": []
+  },
+  {
+   "piece": "seven",
+   "origin": [
+    126.0,
+    61.0
+   ],
+   "tracks": [
+    {
+     "kind": "opacity",
+     "from": [
+      0
+     ],
+     "at": 130,
+     "duration": 40,
+     "ease": "linear"
+    },
+    {
+     "kind": "scale",
+     "from": [
+      0.86,
+      0.86
+     ],
+     "at": 640,
+     "duration": 80,
+     "ease": "out"
+    },
+    {
+     "kind": "scale",
+     "from": [
+      1.14,
+      1.14
+     ],
+     "at": 720,
+     "duration": 160,
+     "ease": "spring"
+    }
+   ]
+  },
+  {
+   "piece": "two",
+   "origin": [
+    154.0,
+    61.0
+   ],
+   "tracks": [
+    {
+     "kind": "opacity",
+     "from": [
+      0
+     ],
+     "at": 390,
+     "duration": 40,
+     "ease": "linear"
+    },
+    {
+     "kind": "scale",
+     "from": [
+      0.86,
+      0.86
+     ],
+     "at": 640,
+     "duration": 80,
+     "ease": "out"
+    },
+    {
+     "kind": "scale",
+     "from": [
+      1.14,
+      1.14
+     ],
+     "at": 720,
+     "duration": 160,
+     "ease": "spring"
+    }
+   ]
+  },
+  {
+   "piece": "mark",
+   "origin": [
+    83.0,
+    48.0
+   ],
+   "tracks": [
+    {
+     "kind": "opacity",
+     "from": [
+      2
+     ],
+     "at": 600,
+     "duration": 50,
+     "ease": "linear"
+    },
+    {
+     "kind": "opacity",
+     "from": [
+      0
+     ],
+     "at": 760,
+     "duration": 60,
+     "ease": "linear"
+    }
+   ]
+  },
+  {
+   "piece": "key-cap-seven",
+   "origin": [
+    73.0,
+    117.0
+   ],
+   "tracks": [
+    {
+     "kind": "scale",
+     "from": [
+      1.38,
+      1.38
+     ],
+     "at": 80,
+     "duration": 70,
+     "ease": "out"
+    },
+    {
+     "kind": "scale",
+     "from": [
+      0.62,
+      0.62
+     ],
+     "at": 150,
+     "duration": 90,
+     "ease": "spring"
+    },
+    {
+     "kind": "translate",
+     "from": [
+      0,
+      -3.776
+     ],
+     "at": 80,
+     "duration": 70,
+     "ease": "out"
+    },
+    {
+     "kind": "translate",
+     "from": [
+      0,
+      3.776
+     ],
+     "at": 150,
+     "duration": 90,
+     "ease": "linear"
+    },
+    {
+     "kind": "opacity",
+     "from": [
+      1.55
+     ],
+     "at": 80,
+     "duration": 70,
+     "ease": "linear"
+    },
+    {
+     "kind": "opacity",
+     "from": [
+      0.45
+     ],
+     "at": 150,
+     "duration": 90,
+     "ease": "linear"
+    }
+   ]
+  },
+  {
+   "piece": "keys-top",
+   "origin": [
+    118.0,
+    118.0
+   ],
+   "tracks": []
+  },
+  {
+   "piece": "key-cap-two",
+   "origin": [
+    103.0,
+    181.0
+   ],
+   "tracks": [
+    {
+     "kind": "scale",
+     "from": [
+      1.38,
+      1.38
+     ],
+     "at": 340,
+     "duration": 70,
+     "ease": "out"
+    },
+    {
+     "kind": "scale",
+     "from": [
+      0.62,
+      0.62
+     ],
+     "at": 410,
+     "duration": 90,
+     "ease": "spring"
+    },
+    {
+     "kind": "translate",
+     "from": [
+      0,
+      -3.776
+     ],
+     "at": 340,
+     "duration": 70,
+     "ease": "out"
+    },
+    {
+     "kind": "translate",
+     "from": [
+      0,
+      3.776
+     ],
+     "at": 410,
+     "duration": 90,
+     "ease": "linear"
+    },
+    {
+     "kind": "opacity",
+     "from": [
+      1.55
+     ],
+     "at": 340,
+     "duration": 70,
+     "ease": "linear"
+    },
+    {
+     "kind": "opacity",
+     "from": [
+      0.45
+     ],
+     "at": 410,
+     "duration": 90,
+     "ease": "linear"
+    }
+   ]
+  },
+  {
+   "piece": "key-cap-three",
+   "origin": [
+    118.0,
+    118.0
+   ],
+   "tracks": []
+  },
+  {
+   "piece": "equals",
+   "origin": [
+    163.0,
+    181.0
+   ],
+   "tracks": [
+    {
+     "kind": "scale",
+     "from": [
+      1.38,
+      1.38
+     ],
+     "at": 590,
+     "duration": 70,
+     "ease": "out"
+    },
+    {
+     "kind": "scale",
+     "from": [
+      0.62,
+      0.62
+     ],
+     "at": 660,
+     "duration": 90,
+     "ease": "spring"
+    },
+    {
+     "kind": "translate",
+     "from": [
+      0,
+      -3.776
+     ],
+     "at": 590,
+     "duration": 70,
+     "ease": "out"
+    },
+    {
+     "kind": "translate",
+     "from": [
+      0,
+      3.776
+     ],
+     "at": 660,
+     "duration": 90,
+     "ease": "linear"
+    },
+    {
+     "kind": "opacity",
+     "from": [
+      1.55
+     ],
+     "at": 590,
+     "duration": 70,
+     "ease": "linear"
+    },
+    {
+     "kind": "opacity",
+     "from": [
+      0.45
+     ],
+     "at": 660,
+     "duration": 90,
+     "ease": "linear"
+    }
+   ]
+  }
+ ]
+}
