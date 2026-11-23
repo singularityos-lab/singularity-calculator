@@ -561,5 +561,23 @@
     }
    ]
   }
+ ],
+ "accent": [
+  {
+   "from": "#1f4bb8",
+   "shade": -0.3
+  },
+  {
+   "from": "#3a6fe6",
+   "shade": 0
+  },
+  {
+   "from": "#6f9ef9",
+   "shade": 0.28
+  },
+  {
+   "from": "#b4cbf8",
+   "shade": 0.62
+  }
  ]
 }
