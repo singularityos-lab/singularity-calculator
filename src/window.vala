@@ -129,6 +129,25 @@ namespace Singularity.Apps {
             }
         }
 
+        public Variant save_migration() {
+            var d = new VariantDict();
+            d.insert_value("engine", engine.save_state());
+            d.insert_value("advanced", new Variant.boolean(is_advanced));
+            return d.end();
+        }
+
+        public void restore_migration(Variant data) {
+            var d = new VariantDict(data);
+            var advanced = d.lookup_value("advanced", VariantType.BOOLEAN);
+            if (advanced != null && advanced.get_boolean() != is_advanced) toggle_mode();
+            var state = d.lookup_value("engine", null);
+            if (state == null) return;
+            engine.restore_state(state);
+            bool degrees = engine.angle_unit == CalculatorEngine.AngleUnit.DEGREES;
+            lookup_action("angle").change_state(new Variant.string(degrees ? "degrees" : "radians"));
+            update_display();
+        }
+
         private void toggle_mode() {
             is_advanced = !is_advanced;
             var mode_action = lookup_action("mode") as SimpleAction;

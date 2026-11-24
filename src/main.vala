@@ -3,7 +3,7 @@ using Singularity;
 
 namespace Singularity.Apps {
 
-    public class CalculatorApp : Singularity.Application {
+    public class CalculatorApp : Singularity.Application, Singularity.Migration.Migratable {
 
         private CalculatorWindow? window = null;
         private bool start_advanced = false;
@@ -97,18 +97,46 @@ namespace Singularity.Apps {
                 window.present();
                 return;
             }
-            window = new CalculatorWindow(this);
-            // Without this the reference outlives the widget and a second
-            // activation would present a destroyed window.
-            window.close_request.connect(() => {
-                window = null;
-                return false;
-            });
+            adopt(new CalculatorWindow(this));
             window.present();
             if (start_advanced) {
                 start_advanced = false;
                 activate_action("advanced-mode", null);
             }
+        }
+
+        private void adopt(CalculatorWindow w) {
+            window = w;
+            // Without this the reference outlives the widget and a second
+            // activation would present a destroyed window.
+            w.close_request.connect(() => {
+                if (window == w) window = null;
+                return false;
+            });
+        }
+
+        public Variant save_model() {
+            return new VariantDict().end();
+        }
+
+        public async void restore_model(Variant model) throws Error {
+        }
+
+        public string window_kind(Gtk.Window w) {
+            return (w is CalculatorWindow) ? "calculator" : "";
+        }
+
+        public Variant save_window(Gtk.Window w) {
+            return ((CalculatorWindow) w).save_migration();
+        }
+
+        public async Gtk.Window? rebuild_window(string kind, Variant data) throws Error {
+            if (kind != "calculator") return null;
+            if (window != null) window.destroy();
+            var w = new CalculatorWindow(this);
+            adopt(w);
+            w.restore_migration(data);
+            return w;
         }
 
         private void setup_styles() {

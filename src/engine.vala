@@ -400,6 +400,53 @@ namespace Singularity.Apps {
             log = {};
         }
 
+        public Variant save_state() {
+            var pending = new VariantBuilder(new VariantType("a(di)"));
+            foreach (var p in ops) pending.add("(di)", p.value, (int) p.op);
+            var marks = new VariantBuilder(new VariantType("ai"));
+            foreach (int m in paren_marks) marks.add("i", m);
+            return new Variant.tuple({
+                new Variant.string(display),
+                new Variant.string(history),
+                new Variant.int32((int) status),
+                new Variant.int32((int) angle_unit),
+                new Variant.double(memory),
+                pending.end(),
+                marks.end(),
+                new Variant.strv(log),
+                new Variant.boolean(new_entry),
+                new Variant.boolean(awaiting_operand),
+                new Variant.boolean(operand_ready),
+                new Variant.double(exact_value),
+                new Variant.boolean(exact_valid)
+            });
+        }
+
+        public void restore_state(Variant state) {
+            PendingOp[] restored = {};
+            var it = state.get_child_value(5).iterator();
+            double value;
+            int op;
+            while (it.next("(di)", out value, out op)) restored += PendingOp() { value = value, op = (Operation) op };
+            ops = restored;
+            int[] restored_marks = {};
+            it = state.get_child_value(6).iterator();
+            int mark;
+            while (it.next("i", out mark)) restored_marks += mark;
+            paren_marks = restored_marks;
+            log = state.get_child_value(7).dup_strv();
+            new_entry = state.get_child_value(8).get_boolean();
+            awaiting_operand = state.get_child_value(9).get_boolean();
+            operand_ready = state.get_child_value(10).get_boolean();
+            exact_value = state.get_child_value(11).get_double();
+            exact_valid = state.get_child_value(12).get_boolean();
+            memory = state.get_child_value(4).get_double();
+            angle_unit = (AngleUnit) state.get_child_value(3).get_int32();
+            history = state.get_child_value(1).get_string();
+            status = (Status) state.get_child_value(2).get_int32();
+            display = state.get_child_value(0).get_string();
+        }
+
         // ------------------------------------------------------------------
         // Internals
         // ------------------------------------------------------------------
