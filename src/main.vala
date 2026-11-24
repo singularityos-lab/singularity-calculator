@@ -3,7 +3,7 @@ using Singularity;
 
 namespace Singularity.Apps {
 
-    public class CalculatorApp : Singularity.Application, Singularity.Migration.Migratable {
+    public class CalculatorApp : Singularity.Application, Singularity.Migration.Migratable, Singularity.Startup.Bootable {
 
         private CalculatorWindow? window = null;
         private bool start_advanced = false;
@@ -92,7 +92,30 @@ namespace Singularity.Apps {
             set_accels_for_action("win.mode::advanced", {"<Control>m"});
         }
 
-        protected override void activate() {
+        public Singularity.Startup.Plan build_plan(Singularity.Startup.Request request) {
+            var plan = new Singularity.Startup.Plan();
+            plan.version = "calculator-1";
+            if (request.kind == Singularity.Startup.RequestKind.SERVICE) {
+                plan.main("ready", Singularity.Startup.Category.PREPARE, (c) => {})
+                    .reaches(Singularity.Startup.Milestone.SHELL_READY)
+                    .reaches(Singularity.Startup.Milestone.CONTENT_READY)
+                    .reaches(Singularity.Startup.Milestone.INTERACTIVE);
+                return plan;
+            }
+            plan.main("window", Singularity.Startup.Category.SHELL, (c) => {
+                show_window();
+                c.window = window;
+            }).reaches(Singularity.Startup.Milestone.SHELL_READY)
+              .reaches(Singularity.Startup.Milestone.CONTENT_READY)
+              .reaches(Singularity.Startup.Milestone.INTERACTIVE);
+            return plan;
+        }
+
+        public void handle_request(Singularity.Startup.Request request) {
+            show_window();
+        }
+
+        private void show_window() {
             if (window != null) {
                 window.present();
                 return;
